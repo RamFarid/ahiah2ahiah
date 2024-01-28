@@ -22,6 +22,11 @@ function Motto() {
         الــشــعــــار
       </Typography>
       {/* <AudioPlayer /> */}
+      {
+        <Typography variant='caption' color={'text.secondary'}>
+          نبدأ بالبيت الأول
+        </Typography>
+      }
       {<Marrad />}
       {/* <Button
         onClick={toggleMarrad}
@@ -35,7 +40,7 @@ function Motto() {
       >
         {showMarrad ? 'اخفاء المرد بعد كل فقرة' : 'اظهار المرد بعد كل فقرة'}
       </Button> */}
-      <Grid container component={'ul'} px={1} gap={4} mt={2}>
+      <Grid container component={'ol'} px={1} gap={4} mt={2}>
         <CustomListItem
           txt={`ياللي سألتوا فين الله<br/>
      من قبل خلق الاكوان <br/>
@@ -77,7 +82,6 @@ const CustomListItem = ({ txt, showMarrad }) => (
       item
       component={'li'}
       sx={{
-        '&::marker': { content: "'\u{1F9E1}'" },
         paddingInlineStart: 1.3,
       }}
     >
