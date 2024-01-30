@@ -58,7 +58,7 @@ function SinglePerson({ person, onEdit, i }) {
     const res = await server.put(`/qrcode?id=${person._id}`)
     const data = res.data
     if (data.success) {
-      toast.success(`${person.name} زاد نقطتين`, {
+      toast.success(`${person.name} زاد ${data.inc_by}`, {
         progress: 0,
         icon: <SuperscriptIcon color='success' />,
       })
@@ -80,6 +80,7 @@ function SinglePerson({ person, onEdit, i }) {
         <CustomCell
           align='right'
           onClick={async () => {
+            if (!isLoggedIn) return
             try {
               setIsLoading(true)
               const link = await generateQRImg(person._id)

@@ -107,7 +107,7 @@ function Day() {
             ? daysProgramme.daythursday
             : day === 'الجمعه'
             ? daysProgramme.dayfriday
-            : daysProgramme.dayfriday
+            : daysProgramme.daysaturday
         }
       />
     </Box>

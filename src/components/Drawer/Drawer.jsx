@@ -21,7 +21,13 @@ import {
 } from '@mui/material'
 import { useCallback, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Facebook, Instagram, WhatsApp } from '@mui/icons-material'
+import {
+  DashboardCustomize,
+  Facebook,
+  Instagram,
+  QuizTwoTone,
+  WhatsApp,
+} from '@mui/icons-material'
 import { useUser } from '../../Contexts/UserContext'
 import secondsComing from '../../assets/second-coming.png'
 import MenuTitle from './MenuTitle'
@@ -114,7 +120,7 @@ function Drawer({ isDrawer, closeDrawer }) {
             <ListItemText>شعار المؤتمر</ListItemText>
           </MenuLink>
           <MenuAccorion isOpen={isMenu === 0} i={0} setIsOpen={setIsMenu}>
-            <MenuTitle txt='النظام' icon={<AccessAlarm />} />
+            <MenuTitle txt='البرنامج' icon={<AccessAlarm />} />
             <MenuAccordionDetails>
               <MenuItem
                 txt='الخميس'
@@ -131,48 +137,57 @@ function Drawer({ isDrawer, closeDrawer }) {
             </ListItemIcon>
             <ListItemText>الترتيب</ListItemText>
           </MenuLink>
+          <MenuLink component={NavLink} to='/quiz' onClick={closeDrawer}>
+            <ListItemIcon>
+              <QuizTwoTone />
+            </ListItemIcon>
+            <ListItemText>المسابقة</ListItemText>
+          </MenuLink>
           {isLoggedIn ? (
-            <MenuLink component={NavLink} to='/qrcode' onClick={closeDrawer}>
-              <ListItemIcon>
-                <QrCode2RoundedIcon />
-              </ListItemIcon>
-              <ListItemText>Scanner</ListItemText>
-            </MenuLink>
+            <>
+              <MenuLink component={NavLink} to='/qrcode' onClick={closeDrawer}>
+                <ListItemIcon>
+                  <QrCode2RoundedIcon />
+                </ListItemIcon>
+                <ListItemText>Scanner</ListItemText>
+              </MenuLink>
+              <MenuLink
+                component={NavLink}
+                to='/dashboard'
+                onClick={closeDrawer}
+              >
+                <ListItemIcon>
+                  <DashboardCustomize />
+                </ListItemIcon>
+                <ListItemText>داشبورد</ListItemText>
+              </MenuLink>
+            </>
           ) : null}
           <Divider />
         </Box>
-        {/* <Stack direction={'row'} justifyContent={'space-between'} px={3}>
-          <Typography component='div'>دكنها</Typography>
-          <FormControlLabel
-            control={
-              <MaterialUISwitch
-                checked={theme !== 'light'}
-                onChange={toggleTheme}
-              />
-            }
-          />
-        </Stack> */}
-        <Stack justifyContent={'flex-end'} direction={'row'} my={1} px={2.5}>
-          <Button
-            disabled={!isLoggedIn || isLoading}
-            variant='contained'
-            color='error'
-            disableElevation
-            sx={{ borderRadius: '100px' }}
-            onClick={async () => {
-              try {
-                setisLoading(true)
-                await logOut()
-              } catch (error) {
-                toast.error(error.message)
-              } finally {
-                setisLoading(false)
-              }
-            }}
-          >
-            {isLoading ? 'يتم تسجيل الخروج...' : 'سجل خروج'}
-          </Button>
-        </Stack>
+        {isLoggedIn && (
+          <Stack justifyContent={'flex-end'} direction={'row'} my={1} px={2.5}>
+            <Button
+              disabled={!isLoggedIn || isLoading}
+              variant='contained'
+              color='error'
+              disableElevation
+              sx={{ borderRadius: '100px' }}
+              onClick={async () => {
+                try {
+                  setisLoading(true)
+                  await logOut()
+                } catch (error) {
+                  toast.error(error.message)
+                } finally {
+                  setisLoading(false)
+                }
+              }}
+            >
+              {isLoading ? 'يتم تسجيل الخروج...' : 'سجل خروج'}
+            </Button>
+          </Stack>
+        )}
 
         <Stack
           marginTop={'auto'}

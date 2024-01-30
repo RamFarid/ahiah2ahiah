@@ -28,6 +28,7 @@ function ControlPersonModal({ person, open, onClose }) {
   const [name, setName] = useState('')
   const [points, setPoints] = useState('')
   const [grade, setGrade] = useState('')
+  const [gender, setGender] = useState('')
   const [errors, setErrors] = useState({
     name: '',
     points: '',
@@ -57,12 +58,14 @@ function ControlPersonModal({ person, open, onClose }) {
     if (Object.keys(person).length) {
       setName(person.name)
       setGrade(person.grade)
+      setGender(person?.gender)
     }
   }, [person])
 
   const handlePersonSave = async () => {
-    if (!online) return toast('طب ما انت معكش نت')
+    if (!online) return toast('انت معكش نت')
     const upoints = Number(points)
+    const ugender = Number(gender)
     const uname = name.trim()
     try {
       setIsLoading(true)
@@ -71,6 +74,7 @@ function ControlPersonModal({ person, open, onClose }) {
           name: uname,
           points: upoints === '' ? 0 : upoints,
           grade,
+          gender: ugender,
         }
         const response = await server.post(`/persons/new`, personData)
         const data = response.data
@@ -91,6 +95,7 @@ function ControlPersonModal({ person, open, onClose }) {
         name: uname,
         points: person.points + upoints,
         grade,
+        gender: ugender,
       })
       const data = response.data
       if (data.success) {
@@ -116,8 +121,37 @@ function ControlPersonModal({ person, open, onClose }) {
     setName('')
     setPoints('')
     setQrCode('')
+    setGender('')
     setDownloadURL('')
     onClose()
+  }
+
+  const isDisabled = () => {
+    if (isLoading) return isLoading
+    console.log('first')
+    if (Object.keys(person || {})?.length) {
+      console.log('s')
+      if (
+        name.trim() === person.name &&
+        !Number(points) &&
+        Number(grade) === Number(person.grade) &&
+        Number(gender) === Number(person.gender)
+      )
+        return true
+    } else {
+      console.log('se')
+      if (
+        Boolean(errors.name.length) ||
+        Boolean(errors.points.length) ||
+        Boolean(errors.grade.length)
+      )
+        return true
+      console.log('ei')
+      if (!name.trim() || (!points && points !== 0) || !grade || !gender)
+        return true
+    }
+    console.log('ni')
+    return false
   }
 
   return (
@@ -226,6 +260,7 @@ function ControlPersonModal({ person, open, onClose }) {
           <FormControl fullWidth>
             <InputLabel id='grade-menu-label'>المرحله</InputLabel>
             <Select
+              sx={{ mb: 2 }}
               margin='dense'
               size='small'
               labelId='grade-menu-label'
@@ -239,6 +274,21 @@ function ControlPersonModal({ person, open, onClose }) {
               <MenuItem value={3}>تالته</MenuItem>
             </Select>
           </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id='gender-menu-label'>النوع</InputLabel>
+            <Select
+              margin='dense'
+              size='small'
+              labelId='gender-menu-label'
+              id='gender-menu'
+              value={gender}
+              label='النوع'
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <MenuItem value={1}>ذكر</MenuItem>
+              <MenuItem value={2}>أنثى</MenuItem>
+            </Select>
+          </FormControl>
         </Stack>
       </DialogContent>
       {!qrCode && (
@@ -246,21 +296,7 @@ function ControlPersonModal({ person, open, onClose }) {
           <Button onClick={closeHandler} color='error'>
             اغلاق
           </Button>
-          <Button
-            onClick={handlePersonSave}
-            disabled={
-              isLoading ||
-              Boolean(errors.name.length) ||
-              Boolean(errors.points.length) ||
-              Boolean(errors.grade.length) ||
-              !name.trim() ||
-              !points ||
-              !grade ||
-              (name.trim() === person.name &&
-                !Number(points) &&
-                Number(grade) === Number(person.grade))
-            }
-          >
+          <Button onClick={handlePersonSave} disabled={isDisabled()}>
             {isLoading ? 'بحمل..' : 'حفظ'}
           </Button>
         </DialogActions>
@@ -274,7 +310,8 @@ ControlPersonModal.propTypes = {
     name: PropTypes.string,
     _id: PropTypes.string,
     points: PropTypes.number,
-    grade: PropTypes.string,
+    grade: PropTypes.number,
+    gender: PropTypes.number,
   }),
   onClose: PropTypes.func,
   open: PropTypes.bool,

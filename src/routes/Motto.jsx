@@ -1,15 +1,8 @@
-import { Grid, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 import Paragraph from '../components/reusable/Paragraph'
 
 function Motto() {
-  // const [showMarrad, setShowMarrad] = useState(
-  //   JSON.parse(localStorage.getItem('showMarrad')) || false
-  // )
-  // const toggleMarrad = () => {
-  //   setShowMarrad(!showMarrad)
-  //   localStorage.setItem('showMarrad', JSON.stringify(!showMarrad))
-  // }
   return (
     <Stack>
       <Typography
@@ -21,26 +14,7 @@ function Motto() {
       >
         الــشــعــــار
       </Typography>
-      {/* <AudioPlayer /> */}
-      {
-        <Typography variant='caption' color={'text.secondary'}>
-          نبدأ بالبيت الأول
-        </Typography>
-      }
-      {<Marrad />}
-      {/* <Button
-        onClick={toggleMarrad}
-        sx={{
-          my: 1,
-          position: 'sticky',
-          top: `6px`,
-          bgcolor: 'background.default',
-        }}
-        variant='outlined'
-      >
-        {showMarrad ? 'اخفاء المرد بعد كل فقرة' : 'اظهار المرد بعد كل فقرة'}
-      </Button> */}
-      <Grid container component={'ol'} px={1} gap={4} mt={2}>
+      <Stack container component={'ol'} px={1} gap={4} mt={2}>
         <CustomListItem
           txt={`ياللي سألتوا فين الله<br/>
      من قبل خلق الاكوان <br/>
@@ -51,6 +25,7 @@ function Motto() {
     وبحبه خلق لينا حياه<br/>
      رتب ليل ونهار وايام`}
         />
+        <Marrad />
         <CustomListItem
           txt='ياللي سألتوا فين الله  <br/>
 وسط شر خطيه حروب <br/>
@@ -61,6 +36,7 @@ function Motto() {
 ربنا نفسه تعيش وياه <br/>
 شهوه قلبه انك تتوب'
         />
+        <Marrad />
         <CustomListItem
           txt={`ياللي سألتوا فين الله <br/>
 وسط الم ضيق وتجارب <br/>
@@ -71,15 +47,15 @@ function Motto() {
      ضابط الكل هو الله <br/>
     هدفه يوصل القارب<br/>`}
         />
-      </Grid>
+        <Marrad />
+      </Stack>
     </Stack>
   )
 }
 
-const CustomListItem = ({ txt, showMarrad }) => (
+const CustomListItem = ({ txt }) => (
   <>
-    <Grid
-      item
+    <Box
       component={'li'}
       sx={{
         paddingInlineStart: 1.3,
@@ -89,23 +65,28 @@ const CustomListItem = ({ txt, showMarrad }) => (
         maxWidth={'calc(370px - 20px)'}
         dangerouslySetInnerHTML={{ __html: txt }}
       />
-    </Grid>
-    {showMarrad && <Marrad />}
+    </Box>
   </>
 )
 
 const Marrad = () => (
-  <Paragraph component={'p'} fontWeight={700} variant='h6'>
-    <Typography fontWeight={'inherit'} component={'span'}>
-      المرد:
-    </Typography>
-    <Typography fontWeight={'inherit'} component={'span'} color={'primary'}>
-      {' '}
-      اهيه اهيه ولا مكان هو مش فيه اهيه اهيه عايش فينا و نحيا بيه اهيه اهيه خالق
-      تفاصيلك بايديه اهيه اهيه كل خليقته تحكي عليه اهيه اهيه صوته علي مجاري
-      المياه اهيه اهيه من فمه مخارج الحياه اهيه اهيه الملكوت ... اننا نلقاه اهيه
-      اهيه حلوه اوي العيشه معاه
-    </Typography>
+  <Paragraph
+    component={'p'}
+    fontWeight={700}
+    variant='h6'
+    color={'primary'}
+    fontSize={'inherit'}
+  >
+    اهيه اهيه ولا مكان هو مش فيه <br />
+    اهيه اهيه عايش فينا و نحيا بيه <br />
+    اهيه اهيه خالق تفاصيلك بايديه <br />
+    اهيه اهيه كل خليقته تحكي عليه <br />
+    اهيه اهيه صوته علي مجاري المياه <br />
+    اهيه اهيه من فمه مخارج الحياه <br />
+    اهيه اهيه الملكوت ... اننا نلقاه
+    <br />
+    اهيه اهيه حلوه اوي العيشه معاه <br />
+    اهيه اهيه خلي عينك ديما شايفاه
   </Paragraph>
 )
 

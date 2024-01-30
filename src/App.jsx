@@ -2,7 +2,6 @@ import {
   CssBaseline,
   GlobalStyles,
   ThemeProvider,
-  colors,
   createTheme,
 } from '@mui/material'
 import { useEffect, useMemo } from 'react'
@@ -19,6 +18,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import ScoreContextProvider from './Contexts/ScoreContext'
 import QRCode from './routes/QRCode'
 import ErrorBoundary from './components/ErrorBoundary'
+import Quiz from './routes/Quiz'
+import Dashboard from './routes/Dashboard'
 
 function App() {
   const location = useLocation()
@@ -27,7 +28,10 @@ function App() {
       createTheme({
         palette: {
           mode: 'dark',
-          primary: colors['deepOrange'],
+          primary: {
+            main: '#1C75BC',
+          },
+          secondary: { main: '#27BBAF' },
           firstSecondary: {
             light: '#E6E6FA',
             dark: '#bebdd7ba',
@@ -130,6 +134,22 @@ function App() {
                   </ErrorBoundary>
                 }
                 path='/qrcode'
+              />
+              <Route
+                element={
+                  <ErrorBoundary>
+                    <Quiz />
+                  </ErrorBoundary>
+                }
+                path='/quiz'
+              />
+              <Route
+                element={
+                  <ErrorBoundary>
+                    <Dashboard />
+                  </ErrorBoundary>
+                }
+                path='/dashboard'
               />
             </Route>
             <Route element={<Login />} path='/login' />

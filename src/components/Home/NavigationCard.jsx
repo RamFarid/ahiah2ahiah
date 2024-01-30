@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-function NavigationCard({ to, title, icon }) {
+function NavigationCard({ to, title, icon, color }) {
   return (
     <Link
       component={RouterLink}
@@ -31,7 +31,7 @@ function NavigationCard({ to, title, icon }) {
           React.cloneElement(icon, {
             fontSize: 'large',
             sx: { width: '70%', height: '70%' },
-            color: 'primary',
+            color: color || 'primary',
           })}
       </Stack>
       <Typography variant='h6' color={'text.secondary'}>
@@ -45,6 +45,7 @@ NavigationCard.propTypes = {
   to: PropTypes.string,
   title: PropTypes.string,
   icon: PropTypes.element.isRequired,
+  color: PropTypes.string,
 }
 
 export default NavigationCard

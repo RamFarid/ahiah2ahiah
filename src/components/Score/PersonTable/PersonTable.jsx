@@ -56,10 +56,7 @@ function PersonTable() {
                     {personError}
                     <br />
                     لو المشكله فضلت معاك{' '}
-                    <Link
-                      underline='hover'
-                      href='https://api.whatsapp.com/send?phone=201553706448&text=ما هتلاقيني جنبك ديما .. داخللي واتساب ليه؟\n'
-                    >
+                    <Link href='https://api.whatsapp.com/send?phone=201553706448&text=ما هتلاقيني جنبك ديما .. داخللي واتساب ليه؟\n'>
                       تعالالي
                     </Link>
                     <br />

@@ -1,6 +1,6 @@
 import { Button, TableCell, TableRow, Typography } from '@mui/material'
 import { useUser } from '../../Contexts/UserContext'
-
+import PropTypes from 'prop-types'
 function TableHeader({ txt, actoionText, actionHandler, columns }) {
   const { isLoggedIn } = useUser()
   return (
@@ -31,6 +31,13 @@ function TableHeader({ txt, actoionText, actionHandler, columns }) {
       )}
     </TableRow>
   )
+}
+
+TableHeader.propTypes = {
+  txt: PropTypes.string,
+  actoionText: PropTypes.string,
+  actionHandler: PropTypes.func,
+  columns: PropTypes.number,
 }
 
 export default TableHeader

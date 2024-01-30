@@ -9,23 +9,14 @@ import PropTypes from 'prop-types'
 // theme.palette.secondSecondary
 // theme.palette.thirdSecondary
 
-function SingleTopCard({ person: { name, points, grade }, i, hidden }) {
+function SingleTopCard({ person: { name, points, grade }, i }) {
   return (
     <Stack
       mt={i === 1 ? 0 : 3.6}
       px={1}
       zIndex={i === 1 ? 2 : 'unset'}
       flex={1}
-      opacity={hidden && 0}
-      bgcolor={
-        grade === 1
-          ? '#bebdd7ba'
-          : grade === 2
-          ? '#e6c49ebf'
-          : grade === 3
-          ? '#9c9885b0'
-          : '#BEBAA7'
-      }
+      bgcolor={(t) => t.palette.primary.dark}
       borderRadius={'100px 100px 0 0'}
       maxWidth={'121px'}
       alignItems={'center'}
@@ -47,20 +38,18 @@ function SingleTopCard({ person: { name, points, grade }, i, hidden }) {
           component={'div'}
           color={'text.secondary'}
           textAlign={'center'}
+          sx={{
+            width: '100%',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
         >
           {name}
         </Typography>
 
         <Box
-          bgcolor={
-            grade === 1
-              ? '#bebdd7ba'
-              : grade === 2
-              ? '#e6c49ebf'
-              : grade === 3
-              ? '#9c9885b0'
-              : '#BEBAA7'
-          }
+          bgcolor={(t) => t.palette.primary.main}
           borderRadius={'50%'}
           p={1}
           boxShadow={4}
@@ -86,7 +75,7 @@ function SingleTopCard({ person: { name, points, grade }, i, hidden }) {
               width: '120px',
               height: '120px',
               fontSize: '40px',
-              // position: 'absolute',
+              backgroundColor: (t) => t.palette.primary.dark,
             }}
           >
             {minimalString(name)}
