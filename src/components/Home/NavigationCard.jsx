@@ -17,15 +17,15 @@ function NavigationCard({ to, title, icon, color }) {
       <Stack
         width={'120px'}
         height={'120px'}
-        bgcolor={'rgba(255, 255, 255, 15%)'}
+        bgcolor={(t) =>
+          t.palette.mode === 'light' ? '#ececec' : 'rgba(255, 255, 255, 15%)'
+        }
         sx={{ backdropFilter: 'blur(2px)' }}
         borderRadius={'50%'}
         border={(t) => 'dashed 1px ' + t.palette.text.primary}
         justifyContent={'center'}
         alignItems={'center'}
-        boxShadow={
-          '0px 5px 5px -3px rgba(255,255,255,0.2), 0px 8px 10px 1px rgba(255,255,255,0.14), 0px 3px 14px 2px rgba(255,255,255,0.12)'
-        }
+        boxShadow={(t) => t.palette.navigationCardShadow[t.palette.mode]}
       >
         {icon &&
           React.cloneElement(icon, {

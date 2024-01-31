@@ -16,6 +16,7 @@ import server from '../../lib/axios'
 import { useQuiz } from '../../Contexts/QuizContext'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
+import getRelativeTime from '../../utils/getRelativeTime'
 
 function Statistics({ canOpen, currentStatistics, closeStatistics }) {
   const { updatePerson } = useQuiz()
@@ -84,19 +85,39 @@ function Statistics({ canOpen, currentStatistics, closeStatistics }) {
                 <Stack
                   direction={'row-reverse'}
                   justifyContent={'space-around'}
+                  alignItems={'center'}
                 >
-                  <Typography
-                    color={'primary'}
-                    fontWeight={900}
-                    align='center'
-                    bgcolor={'#fff'}
-                    width={'fit-content'}
-                    borderRadius={'7px'}
-                    p={0.6}
+                  <Box
+                    display={'flex'}
+                    justifyContent={'center'}
+                    alignItems={'flex-end'}
+                    flexDirection={'column'}
                   >
-                    {currentStatistics.degree}/
-                    {currentStatistics?.questions?.length}
-                  </Typography>
+                    <Typography
+                      color={(t) =>
+                        t.palette.mode === 'dark' ? '#000' : '#fff'
+                      }
+                      fontWeight={900}
+                      align='center'
+                      bgcolor={(t) =>
+                        t.palette.mode === 'dark' ? '#fff' : '#000'
+                      }
+                      width={'fit-content'}
+                      borderRadius={'7px'}
+                      p={0.6}
+                    >
+                      {currentStatistics.degree}/
+                      {currentStatistics?.questions?.length}
+                    </Typography>
+                    <Typography
+                      fontWeight={700}
+                      dir='ltr'
+                      variant='caption'
+                      color={'text.secondary'}
+                    >
+                      Solved: {getRelativeTime(currentStatistics.createdAt)}
+                    </Typography>
+                  </Box>
                   <Button
                     onClick={async () => {
                       try {

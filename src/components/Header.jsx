@@ -14,7 +14,10 @@ function Header() {
   const closeDrawer = useCallback(() => setIsDrawer(false), [])
   return (
     <>
-      <AppBar position='sticky' sx={{ top: 0 }}>
+      <AppBar
+        position='sticky'
+        sx={{ top: 0, bgcolor: (t) => t.mixins.toolbar.backgroundColor }}
+      >
         <Toolbar>
           <Stack
             alignItems={'center'}
@@ -36,22 +39,22 @@ function Header() {
               <Box
                 height={'76px'}
                 component={'img'}
-                src={'/logo-transparent.png'}
+                src={
+                  theme === 'dark'
+                    ? '/logo-transparent.png'
+                    : '/logo-transparent.svg'
+                }
               />
             </Stack>
           </Stack>
           <Button
             component={NavLink}
             // variant='contained'
-            to={
-              window.location.pathname.slice(1) === 'score'
-                ? `/login?next=${window.location.pathname.slice(1)}`
-                : '/login'
-            }
-            sx={{
+            to={`/login?next=${window.location.pathname.slice(1)}`}
+            sx={(t) => ({
               mx: 1.3,
               fontWeight: 900,
-              color: theme === 'dark' ? 'primary' : '#fff',
+              color: t.palette.mode === 'dark' ? 'primary' : '#fff',
               '&:hover': {
                 bgcolor: 'action.hover',
               },
@@ -59,7 +62,7 @@ function Header() {
                 bgcolor: '#ffffffa6',
                 color: 'primary',
               },
-            }}
+            })}
             disabled={isLoggedIn}
           >
             {isLoggedIn ? 'انت فعلا خادم' : 'خادم؟'}

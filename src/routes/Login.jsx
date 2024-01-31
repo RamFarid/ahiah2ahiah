@@ -1,10 +1,9 @@
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { useUser } from '../Contexts/UserContext'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Header from '../components/Header'
-import deep from '../assets/deep-bg.jpg'
 import server from '../lib/axios'
 
 function Login() {
@@ -15,7 +14,7 @@ function Login() {
   const { setIsLoggedIn, isLoggedIn } = useUser()
   const [searchParams] = useSearchParams()
   const nextDestination = searchParams.get('next')
-  if (isLoggedIn) return redirect('/', { replace: true })
+  if (isLoggedIn) return <Navigate to='/' replace />
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -48,7 +47,6 @@ function Login() {
       sx={{
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% 100%',
-        backgroundImage: `url("${deep}")`,
       }}
     >
       <Header />
@@ -59,15 +57,15 @@ function Login() {
         justifyContent={'center'}
         alignItems={'center'}
         sx={{
-          background: 'rgba(0, 0, 0, 25%)',
           borderRadius: 2,
           boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-          backdropFilter: 'blur(10.5px)',
         }}
       >
         <Stack
           component={'form'}
-          border={'3px solid #ddd'}
+          border={(t) =>
+            t.palette.mode === 'dark' ? '3px solid #ddd' : '3px solid #555'
+          }
           width={'87%'}
           maxWidth={'370px'}
           borderRadius={'32px'}
@@ -79,23 +77,20 @@ function Login() {
             variant='h4'
             mx={'auto'}
             borderRadius={'60px'}
-            border={'3px solid #ddd'}
+            border={(t) =>
+              t.palette.mode === 'dark' ? '3px solid #ddd' : '3px solid #555'
+            }
             px={2}
             py={1}
             mb={'30px'}
             bgcolor='transparent'
-            color='#ddd'
           >
-            اثبت انك خادم
+            تسجيل دخول خادم
           </Typography>
           <TextField
             autoComplete='off'
             sx={{
               mb: 2,
-              color: '#fff',
-              '& input': {
-                color: '#ddd',
-              },
               '& fieldset': {
                 border: '1px solid #ddd',
               },

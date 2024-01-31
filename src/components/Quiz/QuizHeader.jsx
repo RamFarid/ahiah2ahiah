@@ -25,7 +25,7 @@ function QuizHeader({
     >
       {isUser ? (
         <Button variant='contained' disableElevation onClick={onClickSubmit}>
-          انهاء
+          {showAnswers ? 'انهاء' : 'تسليم'}
         </Button>
       ) : null}
       <Typography variant='h5' align='center' bgcolor={'transparent'}>
@@ -39,7 +39,9 @@ function QuizHeader({
         align='center'
         color={(t) => (showAnswers ? t.palette.success.main : 'inherit')}
       >
-        {showAnswers
+        {!isUser
+          ? `${activeQuiz?.questions?.length} أسألة`
+          : showAnswers
           ? `النتيجه: ${degree}/${activeQuiz?.questions?.length}`
           : `${solvedNoShown}/${activeQuiz?.questions?.length}`}
       </Typography>

@@ -21,14 +21,16 @@ import ErrorBoundary from './components/ErrorBoundary'
 import Quiz from './routes/Quiz'
 import Dashboard from './routes/Dashboard'
 import QuizContextProvider from './Contexts/QuizContext'
+import { useTheme } from './Contexts/ThemeContext'
 
 function App() {
+  const [theme] = useTheme()
   const location = useLocation()
   const themeConstructor = useMemo(
     () =>
       createTheme({
         palette: {
-          mode: 'dark',
+          mode: theme,
           primary: {
             main: '#1C75BC',
           },
@@ -45,6 +47,11 @@ function App() {
             light: '#BEBAA7',
             dark: '#9c9885b0',
           },
+          navigationCardShadow: {
+            dark: '0px 5px 5px -3px rgba(255,255,255,0.2), 0px 8px 10px 1px rgba(255,255,255,0.14), 0px 3px 14px 2px rgba(255,255,255,0.12)',
+            light:
+              '0px 5px 5px -3px rgba(0, 0, 0,0.2), 0px 8px 10px 1px rgba(0, 0, 0,0.14), 0px 3px 14px 2px rgba(0, 0, 0,0.12)',
+          },
         },
         typography: {
           fontFamily: "'Cairo', sans-serif",
@@ -60,7 +67,7 @@ function App() {
           },
         },
       }),
-    []
+    [theme]
   )
 
   useEffect(() => {
@@ -86,8 +93,7 @@ function App() {
                 },
                 body: {
                   fontFamily: "'Cairo', sans-serif",
-                  backgroundImage: 'url(/bgblack.webp)',
-                  backgroundAttachment: 'fixed',
+                  overflowX: 'hidden',
                 },
                 '.MuiFormHelperText-root': {
                   textAlign: 'right !important',

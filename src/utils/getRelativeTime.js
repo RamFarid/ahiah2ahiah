@@ -19,11 +19,13 @@ function getRelativeTime(publishedTime) {
           return 'Just now'
         }
         const minutesAgo = Math.floor(timeDifference / oneMinute)
-        return `منذ ${minutesAgo} دقيقة`
+        return `${minutesAgo} minute${minutesAgo > 1 ? 's' : ''} ago`
       }
       const hoursAgo = Math.floor(timeDifference / oneHour)
       const minutesLeft = Math.floor((timeDifference % oneHour) / oneMinute)
-      return `منذ ${hoursAgo} ساعة و ${minutesLeft} دقيقة`
+      return `${hoursAgo} hour${
+        hoursAgo > 1 ? 's' : ''
+      } and ${minutesLeft} minute${minutesLeft > 1 ? 's' : ''} ago`
     }
     const daysOfWeek = [
       'Sunday',
@@ -35,12 +37,12 @@ function getRelativeTime(publishedTime) {
       'Saturday',
     ]
     if (timeDifference < 2 * oneDay) {
-      return `أمس at ${published.toLocaleTimeString([], {
+      return `Yesterday at ${published.toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
       })}`
     }
-    return `${daysOfWeek[published.getDay()]} في ${published.toLocaleTimeString(
+    return `${daysOfWeek[published.getDay()]} at ${published.toLocaleTimeString(
       [],
       { hour: '2-digit', minute: '2-digit' }
     )}`
@@ -65,14 +67,14 @@ function getRelativeTime(publishedTime) {
   if (now.getFullYear() !== published.getFullYear())
     return `${published.getDate()} ${
       monthNames[published.getMonth()]
-    } ${published.getFullYear()} في ${published.toLocaleTimeString([], {
+    } ${published.getFullYear()} at ${published.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
     })}`
 
   return `${published.getDate()} ${
     monthNames[published.getMonth()]
-  } في ${published.toLocaleTimeString([], {
+  } at ${published.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
   })}`

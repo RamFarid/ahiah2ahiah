@@ -13,7 +13,7 @@ function HomeLayout() {
         maxWidth='xs'
         sx={{
           my: 2,
-          // There is a cringe bug here!
+          // There is a cringe lagggggg here!
           // '&::before': {
           //   content: "''",
           //   position: 'fixed',
