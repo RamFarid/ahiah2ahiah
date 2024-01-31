@@ -63,7 +63,7 @@ function QuizTable() {
                       scope='row'
                       align={'center'}
                       onClick={() => {
-                        if (personRow[i] === '-' || personRow[i] === 0) return
+                        if (personRow[i] === '-') return
                         setCurrentStatistics(
                           getQuizPerson(personRow._id, _quiz._id)
                         )
