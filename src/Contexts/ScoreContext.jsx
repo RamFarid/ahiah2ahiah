@@ -4,6 +4,7 @@ import sortDesc from '../utils/sortDesc'
 import { useUser } from './UserContext'
 import PropTypes from 'prop-types'
 import server from '../lib/axios'
+import { useQuiz } from './QuizContext'
 
 const ScoreContext = createContext()
 
@@ -13,6 +14,8 @@ export function useScore() {
 
 function ScoreContextProvider({ children }) {
   const { online } = useUser()
+  const { removePerson: removeQuizPerson, updatePerson: updateQuizPerson } =
+    useQuiz()
   const [groups, setGroups] = useState(
     JSON.parse(localStorage.getItem('groups')) || []
   )
@@ -44,6 +47,7 @@ function ScoreContextProvider({ children }) {
   const removePerson = (person) => {
     const updatedPerson = persons.filter((p) => p._id !== person._id)
     const sortedUpdatedPerson = sortDesc(updatedPerson)
+    removeQuizPerson(person._id)
     setPersons(sortedUpdatedPerson)
   }
 
@@ -56,6 +60,7 @@ function ScoreContextProvider({ children }) {
   const updatePerson = (person) => {
     const removePerson = persons.filter((p) => p._id !== person._id)
     const updatedPerson = sortDesc([...removePerson, person])
+    updateQuizPerson(person)
     setPersons(updatedPerson)
   }
 

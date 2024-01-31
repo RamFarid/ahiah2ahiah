@@ -22,11 +22,6 @@ function AppNavigations() {
     >
       <NavigationCard to={'/motto'} title={'الشعار'} icon={<EventNoteIcon />} />
       <NavigationCard
-        to={'/score'}
-        title={'الترتيب'}
-        icon={<SportsScoreIcon />}
-      />
-      <NavigationCard
         icon={<AccessAlarm />}
         title={'البرنامج'}
         to={`/day/${linkDay}`}
@@ -38,7 +33,12 @@ function AppNavigations() {
       />
       {isLoggedIn && (
         <>
-          <br />
+          <NavigationCard
+            to={'/score'}
+            title={'الترتيب'}
+            icon={<SportsScoreIcon />}
+            color={'error'}
+          />
           <NavigationCard
             icon={<Dashboard />}
             title={'داش بورد'}

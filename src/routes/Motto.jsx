@@ -56,7 +56,8 @@ function Motto() {
 const CustomListItem = ({ txt }) => (
   <>
     <Box
-      component={'li'}
+      component={'p'}
+      textAlign={'center'}
       sx={{
         paddingInlineStart: 1.3,
       }}
@@ -76,6 +77,7 @@ const Marrad = () => (
     variant='h6'
     color={'primary'}
     fontSize={'inherit'}
+    align='center'
   >
     اهيه اهيه ولا مكان هو مش فيه <br />
     اهيه اهيه عايش فينا و نحيا بيه <br />

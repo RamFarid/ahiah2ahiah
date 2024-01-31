@@ -131,12 +131,6 @@ function Drawer({ isDrawer, closeDrawer }) {
               <MenuItem txt='السبت' link='/day/السبت' onClick={closeIsMenu} />
             </MenuAccordionDetails>
           </MenuAccorion>
-          <MenuLink component={NavLink} to='/score' onClick={closeDrawer}>
-            <ListItemIcon>
-              <SportsScoreIcon />
-            </ListItemIcon>
-            <ListItemText>الترتيب</ListItemText>
-          </MenuLink>
           <MenuLink component={NavLink} to='/quiz' onClick={closeDrawer}>
             <ListItemIcon>
               <QuizTwoTone />
@@ -145,6 +139,12 @@ function Drawer({ isDrawer, closeDrawer }) {
           </MenuLink>
           {isLoggedIn ? (
             <>
+              <MenuLink component={NavLink} to='/score' onClick={closeDrawer}>
+                <ListItemIcon>
+                  <SportsScoreIcon />
+                </ListItemIcon>
+                <ListItemText>الترتيب</ListItemText>
+              </MenuLink>
               <MenuLink component={NavLink} to='/qrcode' onClick={closeDrawer}>
                 <ListItemIcon>
                   <QrCode2RoundedIcon />

@@ -43,7 +43,9 @@ function Examiner({ currentUser, setCurrentUser, quizID, onCancelUser }) {
     <Autocomplete
       options={searchList}
       getOptionLabel={(option) => {
-        return `${option.name}: ${option.grade}`
+        return `${option.name}: ${
+          option.grade === 1 ? 'أولى' : option.grade === 2 ? 'تانيه' : 'تالته'
+        }`
       }}
       loading={isLoading}
       onInputChange={(_e, newInputValue) => {

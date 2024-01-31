@@ -117,7 +117,7 @@ function Quiz() {
   }
 
   const submitQuiz = async () => {
-    if (showAnswers) return
+    if (showAnswers) return resetQuiz()
     if (!currentUser?._id) return toast.error('اختار اسمك عشان تعرف تحل')
     try {
       const degree = calculateDegrees()
@@ -158,6 +158,13 @@ function Quiz() {
     return answeredQuestions?.length
   }
 
+  const resetQuiz = () => {
+    setCurrentUser(null)
+    setShowAnswers(false)
+    setDegree(0)
+    console.log('asasd')
+  }
+
   const onClickSubmit = () => {
     if (activeQuiz?.questions?.length - +solvedNoShown()) {
       setIsEnsure(true)
@@ -193,12 +200,7 @@ function Quiz() {
         quizID={activeQuiz?._id}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
-        onCancelUser={() => {
-          setCurrentUser(null)
-          setShowAnswers(false)
-          setDegree(0)
-          console.log('asasd')
-        }}
+        onCancelUser={resetQuiz}
       />
       {isUser && (
         <CustomPagination

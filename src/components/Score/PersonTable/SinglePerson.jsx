@@ -109,11 +109,11 @@ function SinglePerson({ person, onEdit, i }) {
         >
           {person.name}
         </CustomCell>
-        <CustomCell align='right'>
+        <CustomCell align='center'>
           {person.grade === 1 ? 'اولى' : person.grade === 2 ? 'تانيه' : 'تالته'}
         </CustomCell>
         <CustomCell
-          align='right'
+          align='center'
           sx={{
             bgcolor: isLoggedIn ? 'action.hover' : 'transparent',
           }}

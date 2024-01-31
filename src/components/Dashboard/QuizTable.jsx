@@ -7,107 +7,106 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import PropTypes from 'prop-types'
+import { useQuiz } from '../../Contexts/QuizContext'
+import { useState } from 'react'
+import Statistics from './Statistics'
 
-function QuizTable({ quizzes: quizzesG, persons }) {
+function QuizTable() {
+  const { quizzes: quizzesG, quizzesOntoTable, getQuizPerson } = useQuiz()
+  const [currentStatistics, setCurrentStatistics] = useState(null)
+  const closeStatistics = () => setCurrentStatistics(null)
+  const canOpen = Boolean(
+    currentStatistics && Object.keys(currentStatistics || {})?.length
+  )
   return (
-    <TableContainer component={Paper} sx={{ mt: 2 }}>
-      <Table sx={{ minWidth: 760 }} size='medium' aria-label='table quizzes'>
-        <TableHead>
-          <TableRow>
-            <TableCell align='right'>الأسم</TableCell>
-            {quizzesG?.map((quiz) => (
-              <TableCell key={quiz._id} align='center'>
-                {quiz.title}
+    <>
+      <TableContainer component={Paper} sx={{ mt: 2 }}>
+        <Table sx={{ minWidth: 1000 }} size='medium' aria-label='table quizzes'>
+          <TableHead>
+            <TableRow>
+              <TableCell align='right'>الأسم</TableCell>
+              {quizzesG?.map((quiz) => (
+                <TableCell key={quiz._id} align='center'>
+                  {quiz.title}
+                </TableCell>
+              ))}
+              <TableCell
+                sx={{
+                  borderRight: (t) => '1px solid ' + t.palette.divider,
+                }}
+                align='center'
+              >
+                مجموع الكويزات
               </TableCell>
-            ))}
-            <TableCell
-              sx={{
-                borderRight: (t) => '1px solid ' + t.palette.divider,
-              }}
-            >
-              المجموع
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {persons.map((person) => {
-            return (
+              <TableCell
+                sx={{
+                  borderRight: (t) => '1px solid ' + t.palette.divider,
+                }}
+                align='center'
+              >
+                كويزات + بونص
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {quizzesOntoTable.map((personRow) => (
               <TableRow
-                key={person._id}
+                key={personRow._id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align='right'>{person.name}</TableCell>
-
-                {person?.quizzes || person?.quizzes?.length ? (
-                  <>
-                    {quizzesG.map((quizG, i) => {
-                      const targetQuiz = person.quizzes.find(
-                        (q) => q.quiz_id === quizG._id
-                      )
-                      return (
-                        <TableCell
-                          key={targetQuiz?._id || i + person._id}
-                          component='th'
-                          scope='row'
-                          align='center'
-                        >
-                          {targetQuiz?.degree || 0}
-                        </TableCell>
-                      )
-                    })}
+                <TableCell align='right'>{personRow.name}</TableCell>
+                {quizzesG.map((_quiz, i) => {
+                  return (
                     <TableCell
-                      key={person?._id}
+                      key={personRow._id + i + 1}
                       component='th'
                       scope='row'
-                      align='center'
-                      sx={{
-                        borderRight: (t) =>
-                          '1px solid ' + t.palette.divider + ' !important',
+                      align={'center'}
+                      onClick={() => {
+                        if (personRow[i] === '-' || personRow[i] === 0) return
+                        setCurrentStatistics(
+                          getQuizPerson(personRow._id, _quiz._id)
+                        )
                       }}
                     >
-                      {person.quizzes.reduce((pre, acc) => {
-                        return pre + acc.degree
-                      }, 0)}
+                      {personRow[i]}
                     </TableCell>
-                  </>
-                ) : (
-                  <>
-                    {quizzesG.map((_, i) => (
-                      <TableCell
-                        component='th'
-                        scope='row'
-                        key={i + 2}
-                        align='center'
-                      >
-                        {0}
-                      </TableCell>
-                    ))}
-                    <TableCell
-                      component='th'
-                      scope='row'
-                      align='center'
-                      sx={{
-                        borderRight: (t) =>
-                          '1px solid ' + t.palette.divider + ' !important',
-                      }}
-                    >
-                      0
-                    </TableCell>
-                  </>
-                )}
+                  )
+                })}
+                <TableCell
+                  component='th'
+                  scope='row'
+                  align={'center'}
+                  sx={{
+                    borderRight: (t) =>
+                      '1px solid ' + t.palette.divider + ' !important',
+                  }}
+                >
+                  {personRow.sumDegrees}
+                </TableCell>
+                <TableCell
+                  component='th'
+                  scope='row'
+                  align={'center'}
+                  sx={{
+                    borderRight: (t) =>
+                      '1px solid ' + t.palette.divider + ' !important',
+                  }}
+                >
+                  {personRow.sumPoints}
+                </TableCell>
               </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Statistics
+        canOpen={canOpen}
+        closeStatistics={closeStatistics}
+        currentStatistics={currentStatistics}
+      />
+    </>
   )
-}
-
-QuizTable.propTypes = {
-  quizzes: PropTypes.array,
-  persons: PropTypes.array,
 }
 
 export default QuizTable

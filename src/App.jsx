@@ -20,6 +20,7 @@ import QRCode from './routes/QRCode'
 import ErrorBoundary from './components/ErrorBoundary'
 import Quiz from './routes/Quiz'
 import Dashboard from './routes/Dashboard'
+import QuizContextProvider from './Contexts/QuizContext'
 
 function App() {
   const location = useLocation()
@@ -73,100 +74,102 @@ function App() {
   return (
     <ThemeProvider theme={themeConstructor}>
       <UserContextProvider>
-        <ScoreContextProvider>
-          <GlobalStyles
-            styles={{
-              '*': {
-                padding: 0,
-                margin: 0,
-                boxSizing: 'border-box',
-                fontFamily: "'Cairo', sans-serif",
-              },
-              body: {
-                fontFamily: "'Cairo', sans-serif",
-                backgroundImage: 'url(/bgblack.webp)',
-                backgroundAttachment: 'fixed',
-              },
-              '.MuiFormHelperText-root': {
-                textAlign: 'right !important',
-              },
-            }}
-          />
-          <CssBaseline />
-          <Routes>
-            <Route element={<HomeLayout />} path='/'>
-              <Route
-                element={
-                  <ErrorBoundary>
-                    <Home />
-                  </ErrorBoundary>
-                }
-                index
-              />
-              <Route
-                element={
-                  <ErrorBoundary>
-                    <Score />
-                  </ErrorBoundary>
-                }
-                path='/score'
-              />
-              <Route
-                element={
-                  <ErrorBoundary>
-                    <Motto />
-                  </ErrorBoundary>
-                }
-                path='/motto'
-              />
-              <Route
-                element={
-                  <ErrorBoundary>
-                    <Day />
-                  </ErrorBoundary>
-                }
-                path='/day/:day'
-              />
-              <Route
-                element={
-                  <ErrorBoundary>
-                    <QRCode />
-                  </ErrorBoundary>
-                }
-                path='/qrcode'
-              />
-              <Route
-                element={
-                  <ErrorBoundary>
-                    <Quiz />
-                  </ErrorBoundary>
-                }
-                path='/quiz'
-              />
-              <Route
-                element={
-                  <ErrorBoundary>
-                    <Dashboard />
-                  </ErrorBoundary>
-                }
-                path='/dashboard'
-              />
-            </Route>
-            <Route element={<Login />} path='/login' />
-          </Routes>
-          <ToastContainer
-            position='top-center'
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={true}
-            closeOnClick
-            rtl={true}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme='light'
-          />
-        </ScoreContextProvider>
+        <QuizContextProvider>
+          <ScoreContextProvider>
+            <GlobalStyles
+              styles={{
+                '*': {
+                  padding: 0,
+                  margin: 0,
+                  boxSizing: 'border-box',
+                  fontFamily: "'Cairo', sans-serif",
+                },
+                body: {
+                  fontFamily: "'Cairo', sans-serif",
+                  backgroundImage: 'url(/bgblack.webp)',
+                  backgroundAttachment: 'fixed',
+                },
+                '.MuiFormHelperText-root': {
+                  textAlign: 'right !important',
+                },
+              }}
+            />
+            <CssBaseline />
+            <Routes>
+              <Route element={<HomeLayout />} path='/'>
+                <Route
+                  element={
+                    <ErrorBoundary>
+                      <Home />
+                    </ErrorBoundary>
+                  }
+                  index
+                />
+                <Route
+                  element={
+                    <ErrorBoundary>
+                      <Score />
+                    </ErrorBoundary>
+                  }
+                  path='/score'
+                />
+                <Route
+                  element={
+                    <ErrorBoundary>
+                      <Motto />
+                    </ErrorBoundary>
+                  }
+                  path='/motto'
+                />
+                <Route
+                  element={
+                    <ErrorBoundary>
+                      <Day />
+                    </ErrorBoundary>
+                  }
+                  path='/day/:day'
+                />
+                <Route
+                  element={
+                    <ErrorBoundary>
+                      <QRCode />
+                    </ErrorBoundary>
+                  }
+                  path='/qrcode'
+                />
+                <Route
+                  element={
+                    <ErrorBoundary>
+                      <Quiz />
+                    </ErrorBoundary>
+                  }
+                  path='/quiz'
+                />
+                <Route
+                  element={
+                    <ErrorBoundary>
+                      <Dashboard />
+                    </ErrorBoundary>
+                  }
+                  path='/dashboard'
+                />
+              </Route>
+              <Route element={<Login />} path='/login' />
+            </Routes>
+            <ToastContainer
+              position='top-center'
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={true}
+              closeOnClick
+              rtl={true}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme='light'
+            />
+          </ScoreContextProvider>
+        </QuizContextProvider>
       </UserContextProvider>
     </ThemeProvider>
   )

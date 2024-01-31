@@ -2,7 +2,6 @@ import {
   Backdrop,
   SpeedDial as MuiSpeedDial,
   SpeedDialAction,
-  SpeedDialIcon,
 } from '@mui/material'
 import ShareIcon from '@mui/icons-material/Share'
 import OfflineShareIcon from '@mui/icons-material/OfflineShare'
@@ -76,7 +75,7 @@ function SpeedDial() {
           bottom: 16,
           right: 16,
         }}
-        icon={<SpeedDialIcon />}
+        icon={<ShareIcon />}
         onClose={handleClose}
         onOpen={handleOpen}
         open={open}

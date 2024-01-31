@@ -1,7 +1,13 @@
 import { Backdrop, Box, CircularProgress, Grid } from '@mui/material'
 import QuizCardItem from './QuizCardItem'
 import PropTypes from 'prop-types'
-function QuizCards({ quizzes, isSavingLoading, showQuiz, updateActiveQuiz }) {
+import { useQuiz } from '../../Contexts/QuizContext'
+function QuizCards({ showQuiz }) {
+  const {
+    pageState: { isSavingLoading },
+    updateActiveQuiz,
+    quizzes,
+  } = useQuiz()
   return (
     <Grid container spacing={3} position={'relative'}>
       {isSavingLoading && (
@@ -34,9 +40,6 @@ function QuizCards({ quizzes, isSavingLoading, showQuiz, updateActiveQuiz }) {
 }
 
 QuizCards.propTypes = {
-  quizzes: PropTypes.array,
   showQuiz: PropTypes.func,
-  isSavingLoading: PropTypes.bool,
-  updateActiveQuiz: PropTypes.func,
 }
 export default QuizCards

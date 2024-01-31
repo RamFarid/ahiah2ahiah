@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import CheckIcon from '@mui/icons-material/Check'
 
-function ShowQuiz({ quiz, back }) {
+function ShowQuiz({ quiz, onBack }) {
   const [questionShown, setQuestionShown] = useState(1)
   return (
     <>
@@ -24,7 +24,7 @@ function ShowQuiz({ quiz, back }) {
         >
           {quiz.title}
         </Typography>
-        <Button onClick={back} disableElevation variant='contained'>
+        <Button onClick={onBack} disableElevation variant='contained'>
           للخلف
         </Button>
       </Stack>
@@ -60,7 +60,7 @@ function ShowQuiz({ quiz, back }) {
 
 ShowQuiz.propTypes = {
   quiz: PropTypes.object,
-  back: PropTypes.func,
+  onBack: PropTypes.func,
 }
 
 export default ShowQuiz
