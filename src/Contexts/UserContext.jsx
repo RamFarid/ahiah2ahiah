@@ -77,9 +77,10 @@ function UserContextProvider({ children }) {
             sx={{ outline: 'none' }}
             justifyContent={'center'}
             alignItems={'center'}
+            gap={2}
           >
             <Box
-              maxWidth={'400px'}
+              maxWidth={'200px'}
               component={'img'}
               sx={{
                 animation: 'infinite fade 1s',
@@ -92,7 +93,7 @@ function UserContextProvider({ children }) {
                   },
                 },
               }}
-              src='/android-chrome-512x512.png'
+              src='/logo-transparent.png'
             />
             <CircularProgress />
           </Stack>
